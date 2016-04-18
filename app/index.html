@@ -1,0 +1,32 @@
+<!doctype html>
+<html>
+	<head>
+        <meta charset="utf-8">
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+        <!-- Place favicon.ico in the root directory -->
+        <!-- build:css styles/main.css -->
+		<link rel="stylesheet" href="styles/main.css">
+	</head>
+	<body>
+		<section class="weatherAlertContainer">
+			<h2 class="titleWeather">Suivez les risques météo de votre commune en temps réel</h2>
+			<form action="" method="post">
+				<input type="text" name="location" placeholder="Nom / Code Postal">
+				<button class="searchAlert" type="submit">Chercher</button>
+			</form>
+		</section>
+
+        <!-- build:js scripts/vendor.js -->
+        <!-- bower:js -->
+        <script src="../bower_components/matchMedia/matchMedia.js"></script>
+        <!-- endbower -->
+        <!-- endbuild -->
+
+        <!-- build:js app.js -->
+        <script src="app.js"></script>
+        <!-- endbuild -->
+
+    </body>
+</html>

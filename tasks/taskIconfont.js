@@ -26,5 +26,6 @@ gulp.task('Iconfont', function(){
                 .pipe(gulp.dest('app/styles/fonts'))
         })
         //.pipe(gulp.dest('./content/src/main/content/jcr_root/etc/designs/axa/axa-tva/clientlib_base/fonts'))
-        .pipe(gulp.dest('./dist/styles/fonts'));
+        .pipe(gulp.dest('./dist/styles/fonts'))
+        .pipe(gulp.dest('./app/styles/fonts/src'));
 });

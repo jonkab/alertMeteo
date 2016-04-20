@@ -1,0 +1,78 @@
+.weatherAlertContainer{
+  background-color: #efebea;
+  padding: 20px 15px;
+
+  .titleWeather{
+    margin: 0 0 15px 0;
+    font-family: @font-family-helvetica;
+    font-size: 2rem;
+  }
+
+  input[name='location'],
+  .searchAlert{
+    outline: 0;
+    font-family: @font-family-arial;
+    vertical-align: middle;
+  }
+
+  .weatherAlertForm{
+    &:after{
+      display: table;
+      width: 100%;
+      content: " ";
+    }
+  }
+
+  input[name='location']{
+    float: left;
+    padding: 11px 9px 9px 11px;
+    border: 1px solid @wa-ligthgrey;
+    box-shadow: 2px 2px 0px @wa-grey inset;
+    font-size: 1.3rem;
+    color: @wa-darkgrey;
+    width: 80%;
+  }
+
+  .searchAlert{
+    float: right;
+    background-color: @wa-darkgrey;
+    margin-left: 1%;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: #fff;
+    cursor: pointer;
+    padding: 9px 19px;
+    border: 0 outset ;
+    border-bottom: 2px solid @wa-verydarkgrey;
+    text-shadow: 0px 1px 0px @wa-black;
+    width: 18%;
+
+    &:before{
+      display: none;
+    }
+
+    &:after{
+      content: "Chercher";
+    }
+  }
+}
+
+/* MEDIA QUERY */
+
+@media @mobile, @tablet {
+
+  .weatherAlertContainer{
+    .searchAlert{
+      font-size: 1.7rem;
+      &:before{
+        display: block;
+      }
+
+      &:after{
+        display: none;
+      }
+    }
+  }
+
+}

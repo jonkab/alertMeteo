@@ -11,12 +11,17 @@
 	</head>
 	<body>
 		<section class="weatherAlertContainer">
-			<h2 class="titleWeather">Suivez les risques météo de votre commune en temps réel</h2>
-
-			<form action="" method="post" class="js-ajaxSubmit weatherAlertForm">
-                <input type="text" name="location" placeholder="Nom / Code Postal">
-                <button class="searchAlert icon icon_weather_alert_search" type="submit"></button>
-			</form>
+            <form action="" method="post" class="js-ajaxSubmit weatherAlertForm clearfix">
+                <div class="formContainer">
+                    <h2 class="titleWeather">Suivez les risques météo de votre commune en temps réel</h2>
+                    <div class="formLeft">
+                        <input type="number" name="location" placeholder="Nom / Code Postal">
+                    </div>
+                    <div class="formRight">
+                        <button class="searchAlert icon icon_weather_alert_search" type="submit"></button>
+                    </div>
+                </div>
+            </form>
 		</section>
 
         <!-- build:js scripts/vendor.js -->

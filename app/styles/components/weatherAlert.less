@@ -120,12 +120,19 @@
     .searchAlert{
       font-size: 1.7rem;
       border-radius: 0;
+      border-bottom: 0;
+      padding: 10px 19px;
+
       &:before{
         display: block;
       }
 
       &:after{
         display: none;
+      }
+
+      &.errorButton {
+        border-bottom: 0;
       }
     }
   }

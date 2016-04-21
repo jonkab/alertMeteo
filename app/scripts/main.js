@@ -21,7 +21,7 @@ _.mixin({
 
 
 var $form = $('.js-ajaxSubmit');
-    $form.formValidation();
+    $form.formValidation({customTooltipTpl:''});
     $form.on('submit', function(e) {
         e.preventDefault();
          var cp = $form.find('input[name="location"]').val();
@@ -39,10 +39,12 @@ var $form = $('.js-ajaxSubmit');
                 let insee = (result[0].insee);
                 let urlPredict ='http://wiki-predict.com/axa_particulier/accueil.html?insee='+insee;
                 window.open(urlPredict,'_blank');
+
             }
             else
             {
                 //cp not found
+                console.log(data.statusText);
             }
 
 

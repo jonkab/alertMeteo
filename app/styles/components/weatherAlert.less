@@ -8,14 +8,26 @@
   ::-webkit-inner-spin-button { -webkit-appearance: none;}
   ::-webkit-outer-spin-button { -webkit-appearance: none;}
 
+  .formContainer{
+    background-color: @wa-beige;
+    float: left;
+    width:100%;
+    padding: 20px 15px;
+  }
 
-    .formContainer{
-      background-color: #efebea;
-      float: left;
-      width:100%;
-      padding: 20px 15px;
+  .error{
+    background-color: @wa-red;
+    color: @wa-white;
+    margin: 0;
+
+    &.errorServices{
+      padding: 8px 15px;
     }
 
+    &.errorWrite{
+      padding: 11px;
+    }
+  }
 
   .titleWeather{
     margin: 0 0 15px 0;
@@ -50,6 +62,12 @@
     box-shadow: 2px 2px 0px @wa-grey inset;
     font-size: 1.3rem;
     color: @wa-darkgrey;
+
+    &.errorInput{
+      border: 1px solid @wa-red;
+      box-shadow: 1px 1px 4px @wa-red inset;
+      color: @wa-red;
+    }
   }
 
   .searchAlert{
@@ -66,13 +84,17 @@
     border-bottom: 2px solid @wa-verydarkgrey;
     text-shadow: 0px 1px 0px @wa-black;
 
-
     &:before{
       display: none;
     }
 
     &:after{
       content: "Chercher";
+    }
+
+    &.errorButton{
+      background-color: @wa-red;
+      border-bottom: 2px solid @wa-darkred;
     }
   }
 }
@@ -82,14 +104,33 @@
 @media @mobile, @tablet {
 
   .weatherAlertContainer{
+
+    .weatherAlertForm{
+      //padding-bottom: 40px;
+      .formLeft{
+        width: 80%;
+      }
+      .formRight{
+        width: 18%;
+      }
+    }
+
     .searchAlert{
       font-size: 1.7rem;
+      border-radius: 0;
+      border-bottom: 0;
+      padding: 10px 19px;
+
       &:before{
         display: block;
       }
 
       &:after{
         display: none;
+      }
+
+      &.errorButton {
+        border-bottom: 0;
       }
     }
   }

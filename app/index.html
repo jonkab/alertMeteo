@@ -10,20 +10,36 @@
 		<link rel="stylesheet" href="styles/main.css">
 	</head>
 	<body>
-		<section class="weatherAlertContainer">
-            <form action="" class="js-ajaxSubmit weatherAlertForm clearfix">
+        <aside id="aside">
+            <section class="weatherAlertContainer">
+                <form action="" method="post" class="js-ajaxSubmit weatherAlertForm clearfix">
+                    <div class="formContainer">
+                        <h2 class="titleWeather">Suivez les risques météo de votre commune en temps réel</h2>
+                        <div class="formLeft">
+                            <input type="number" name="location" class="" placeholder="Code Postal">
+                        </div>
+                        <div class="formRight">
+                            <button class="searchAlert iconWA iconWA_search" type="submit"></button>
+                        </div>
+                    </div>
+                </form>
+            </section>
+        </aside>
+        <section class="weatherAlertContainer">
+            <form action="" method="post" class="js-ajaxSubmit weatherAlertForm clearfix">
+                <p class="error errorServices">Le service est momentanément indisponible</p>
                 <div class="formContainer">
                     <h2 class="titleWeather">Suivez les risques météo de votre commune en temps réel</h2>
                     <div class="formLeft">
-                        <input type="number" name="location" placeholder="Nom / Code Postal">
+                        <input type="number" name="location" class="errorInput" placeholder="Code Postal">
+                        <p class="error errorWrite error-down">Saisie incorrecte</p>
                     </div>
                     <div class="formRight">
-                        <button class="searchAlert icon icon_weather_alert_search" type="submit"></button>
+                        <button class="searchAlert errorButton iconWA iconWA_search" type="submit"></button>
                     </div>
                 </div>
             </form>
-		</section>
-
+        </section>
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
         <script src="../bower_components/matchMedia/matchMedia.js"></script>

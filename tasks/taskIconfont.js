@@ -7,7 +7,7 @@ var iconfont = require('gulp-iconfont'),
 gulp.task('Iconfont', function(){
     return gulp.src(['./app/icons/*.svg'])
         .pipe(iconfont({
-            fontName: 'icons', // required
+            fontName: 'iconsWA', // required
             appendUnicode: false, // recommended option
             formats: ['ttf', 'eot', 'woff','svg'] // default, 'woff2' and 'svg' are available
         }))
@@ -17,9 +17,9 @@ gulp.task('Iconfont', function(){
                 .pipe(sourcemaps.init())
                 .pipe(consolidate('lodash', {
                     glyphs: glyphs,
-                    fontName: 'icons',
+                    fontName: 'iconsWA',
                     fontPath: '/styles/fonts/src',
-                    className: 'icon'
+                    className: 'iconWA'
                 }))
                 .pipe(rename('icons.less'))
                 .pipe(sourcemaps.write())

@@ -141,20 +141,20 @@ var jQuery = require('jquery/dist/jquery.min');
 
         setCustomConstraintValidationUI: function() {
             var _this = this;
-            $(_this.$element[0].elements).on('keyup change', function(e) {
+            $(_this.$element[0].elements).on('keyup', function(e) {
                 var item = e.target;
 
                 if (item.validity.valid) {
                     _this.unsetCustomEror($(item));
                 } else {
-                    _this.displayCustomEror(item.validationMessage, $(item));
+                    _this.displayCustomEror(item.validationMessage, $(item),'after');
                 }
             });
         },
 
         setFallbackConstraintValidationUI: function() {
             var _this = this;
-            $(_this.$element[0].elements).on('keyup change', function (e) {
+            $(_this.$element[0].elements).on('keyup', function (e) {
                 var item = e.target;
                 _this.unsetCustomEror($(item));
                 _this.checkErrors();
@@ -179,7 +179,7 @@ var jQuery = require('jquery/dist/jquery.min');
                 // check type=number
                 var regNumber = /^[0-9]+$/;
                 if ($(item).val() && $(item).attr('type') === 'number' && !regNumber.test($(item).val())) {
-                    this.displayCustomEror(this.options.errorMessages.pattern[this.userLang], $(item));
+                    this.displayCustomEror(this.options.errorMessages.pattern[this.userLang], $(item),'after');
                     errorCount++;
                 }
                 // check pattern
@@ -194,27 +194,43 @@ var jQuery = require('jquery/dist/jquery.min');
             return errorCount ? true : false;
         },
 
-        displayCustomEror: function(message, $item) {
+        displayCustomEror: function(message, $item, position) {
             if (!$item) { // global error
                 if (!this.$element.children('.' + this.options.classNames.error).length) {
-                    this.$element.prepend(this.options.customTooltipTpl.replace('{{message}}', message));
+                    if((position!=='undefined') && (position ==='after')){
+                        this.$element.append(this.options.customTooltipTpl.replace('{{message}}', message));
+                    }
+                    else{
+                        this.$element.prepend(this.options.customTooltipTpl.replace('{{message}}', message));
+                    }
+
                 } else {
                     this.$element.children('.' + this.options.classNames.error).replaceWith(this.options.customTooltipTpl.replace('{{message}}', message));
                 }
             } else { // single error
                 if (!$item.prev('.' + this.options.classNames.error).length) {
-                    $item.before(this.options.customTooltipTpl.replace('{{message}}', message));
+                    if((position!=='undefined') && (position ==='after')){
+                        this.$element.find('.' + this.options.classNames.error).remove();
+                        $item.after(this.options.customTooltipTpl.replace('{{message}}', message));
+                    }
+                    else {
+                        $item.before(this.options.customTooltipTpl.replace('{{message}}', message));
+                    }
+
                 } else {
                     $item.prev('.' + this.options.classNames.error).replaceWith(this.options.customTooltipTpl.replace('{{message}}', message));
                 }
             }
         },
 
+
         unsetCustomEror: function($item) {
             if (!$item) { // global error
                 this.$element.find('.' + this.options.classNames.error).remove();
             } else { // single error
                 $item.prev('.' + this.options.classNames.error).remove();
+                $item.next('.' + this.options.classNames.error).remove();
+                this.$element.find('.' + this.options.classNames.error).remove();
             }
         }
     };

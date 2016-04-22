@@ -21,7 +21,7 @@ _.mixin({
 
 
 var $form = $('.js-ajaxSubmit');
-    $form.formValidation({customTooltipTpl:''});
+    $form.formValidation();
     $form.on('submit', function(e) {
         e.preventDefault();
          var cp = $form.find('input[name="location"]').val();

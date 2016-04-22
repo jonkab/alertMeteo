@@ -57,6 +57,7 @@ var jQuery = require('jquery/dist/jquery.min');
     // The actual plugin constructor
     function Plugin(element, options) {
         this.$element = $(element);
+        this.$submit = this.$element.find('button[type="submit"]');
         // jQuery has an extend method that merges the
         // contents of two or more objects, storing the
         // result in the first object. The first object
@@ -101,7 +102,8 @@ var jQuery = require('jquery/dist/jquery.min');
                 },
                 error: function(datas) {
                     console.error('error', datas);
-                    _this.displayCustomEror('Error: '+ datas.statusText);
+                  //  _this.displayCustomEror(': '+ datas.statusText);
+                    _this.displayCustomEror('Erreur : Saisie incorrect ou code postal inconnu');
                     _this.unsetLoading();
                 }
             });
@@ -195,10 +197,13 @@ var jQuery = require('jquery/dist/jquery.min');
         },
 
         displayCustomEror: function(message, $item, position) {
+
             if (!$item) { // global error
                 if (!this.$element.children('.' + this.options.classNames.error).length) {
                     if((position!=='undefined') && (position ==='after')){
                         this.$element.append(this.options.customTooltipTpl.replace('{{message}}', message));
+                        $item.addClass('errorInput');
+                        this.$submit.addClass('errorButton');
                     }
                     else{
                         this.$element.prepend(this.options.customTooltipTpl.replace('{{message}}', message));
@@ -211,7 +216,10 @@ var jQuery = require('jquery/dist/jquery.min');
                 if (!$item.prev('.' + this.options.classNames.error).length) {
                     if((position!=='undefined') && (position ==='after')){
                         this.$element.find('.' + this.options.classNames.error).remove();
+
                         $item.after(this.options.customTooltipTpl.replace('{{message}}', message));
+                        $item.addClass('errorInput');
+                        this.$submit.addClass('errorButton');
                     }
                     else {
                         $item.before(this.options.customTooltipTpl.replace('{{message}}', message));
@@ -225,12 +233,15 @@ var jQuery = require('jquery/dist/jquery.min');
 
 
         unsetCustomEror: function($item) {
+
             if (!$item) { // global error
                 this.$element.find('.' + this.options.classNames.error).remove();
             } else { // single error
                 $item.prev('.' + this.options.classNames.error).remove();
                 $item.next('.' + this.options.classNames.error).remove();
                 this.$element.find('.' + this.options.classNames.error).remove();
+                $item.removeClass('errorInput');
+                this.$submit.removeClass('errorButton');
             }
         }
     };

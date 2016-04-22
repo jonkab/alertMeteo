@@ -39,6 +39,7 @@ var $form = $('.js-ajaxSubmit');
                 let insee = (result[0].insee);
                 let urlPredict ='http://wiki-predict.com/axa_particulier/accueil.html?insee='+insee;
                 window.open(urlPredict,'_blank');
+                $form.find('.error').remove();
 
             }
             else

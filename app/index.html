@@ -12,11 +12,11 @@
 	<body>
         <aside id="aside">
             <section class="weatherAlertContainer">
-                <form action="" method="post" class="js-ajaxSubmit weatherAlertForm clearfix">
+                <form class="js-ajaxSubmit weatherAlertForm clearfix">
                     <div class="formContainer">
                         <h2 class="titleWeather">Suivez les risques météo de votre commune en temps réel</h2>
                         <div class="formLeft">
-                            <input type="number" name="location" class="" placeholder="Code Postal" maxlength="5">
+                            <input type="text" pattern="[0-9]{5}" title="Ne peut contenir que 5 chiffres" name="location" class="" placeholder="Code Postal" maxlength="5">
                         </div>
                         <div class="formRight">
                             <button class="searchAlert iconWA iconWA_search" type="submit"></button>

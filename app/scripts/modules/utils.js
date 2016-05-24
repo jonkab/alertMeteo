@@ -32,6 +32,7 @@ export var Ajax = {
         }
        console.warn('An error has occurred in utils ajax call');
         console.warn(jqXHR);
+        return jqXHR;
     }
 };
 

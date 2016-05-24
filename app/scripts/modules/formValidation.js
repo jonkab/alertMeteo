@@ -58,6 +58,7 @@ var jQuery = require('jquery/dist/jquery.min');
     function Plugin(element, options) {
         this.$element = $(element);
         this.$submit = this.$element.find('button[type="submit"]');
+        
         // jQuery has an extend method that merges the
         // contents of two or more objects, storing the
         // result in the first object. The first object
@@ -75,7 +76,7 @@ var jQuery = require('jquery/dist/jquery.min');
 
     Plugin.prototype = {
 
-        init: function() {
+        init: function init() {
             var _this = this;
 
             this.setLanguage();
@@ -88,52 +89,53 @@ var jQuery = require('jquery/dist/jquery.min');
             }
 
             this.$element.ajaxForm({
-                beforeSubmit: function() {
+                beforeSubmit: function beforeSubmit() {
                     if (_this.checkErrors()) {
                         return false;
                     }
                     _this.setLoading(_this.$element);
                 },
-                success: function() {
+                success: function success() {
+
                     if (_this.$element.attr('target')) {
                         $('body').trigger(_this.$element.attr('target'));
                     }
                     _this.unsetLoading();
                 },
-                error: function(datas) {
+                fail: function error(datas) {
                     console.error('error', datas);
-                  //  _this.displayCustomEror(': '+ datas.statusText);
+                    //  _this.displayCustomEror(': '+ datas.statusText);
                     _this.displayCustomEror('Erreur : Saisie incorrect ou code postal inconnu');
                     _this.unsetLoading();
                 }
             });
         },
 
-        setLanguage: function() {
+        setLanguage: function setLanguage() {
             this.userLang = navigator.language || navigator.userLanguage;
             if (typeof this.options.errorMessages.required[this.userLang] === 'undefined') {
                 this.userLang = 'en';
             }
         },
 
-        setLoading: function() {
+        setLoading: function setLoading() {
             this.$element.addClass(this.options.classNames.loading);
             this.$element.find('.' + this.options.classNames.submit).attr('disabled', 'disabled');
         },
 
-        unsetLoading: function() {
+        unsetLoading: function unsetLoading() {
             this.$element.removeClass(this.options.classNames.loading);
             this.$element.find('.' + this.options.classNames.submit).removeAttr('disabled');
         },
 
-        hasConstraintValidationAPI: function () {
-            return (typeof document.createElement( 'input' ).checkValidity === 'function');
+        hasConstraintValidationAPI: function hasConstraintValidationAPI() {
+            return typeof document.createElement('input').checkValidity === 'function';
         },
 
-        disableNativeConstraintValidationUI: function() {
+        disableNativeConstraintValidationUI: function disableNativeConstraintValidationUI() {
             var _this = this;
             for (var i = 0; i < this.$element.length; i++) {
-                this.$element[i].addEventListener('invalid', function(e) {
+                this.$element[i].addEventListener('invalid', function (e) {
                     e.preventDefault();
                     var item = e.target;
                     _this.displayCustomEror(item.validationMessage, $(item));
@@ -141,20 +143,22 @@ var jQuery = require('jquery/dist/jquery.min');
             }
         },
 
-        setCustomConstraintValidationUI: function() {
+        setCustomConstraintValidationUI: function setCustomConstraintValidationUI() {
             var _this = this;
-            $(_this.$element[0].elements).on('keyup', function(e) {
+            $(_this.$element[0].elements).on('keyup', function (e) {
                 var item = e.target;
 
                 if (item.validity.valid) {
                     _this.unsetCustomEror($(item));
+                    _this.$submit.prop('disabled', false);
                 } else {
-                    _this.displayCustomEror(item.validationMessage, $(item),'after');
+                    _this.displayCustomEror(item.validationMessage, $(item), 'after');
+                    _this.$submit.prop('disabled', true);
                 }
             });
         },
 
-        setFallbackConstraintValidationUI: function() {
+        setFallbackConstraintValidationUI: function setFallbackConstraintValidationUI() {
             var _this = this;
             $(_this.$element[0].elements).on('keyup', function (e) {
                 var item = e.target;
@@ -163,7 +167,8 @@ var jQuery = require('jquery/dist/jquery.min');
             });
         },
 
-        checkErrors: function() { // for browsers doesn't fully support Constraint Validation
+        checkErrors: function checkErrors() {
+            // for browsers doesn't fully support Constraint Validation
             var errorCount = 0;
             for (var i = 0; i < this.$element[0].elements.length; i++) {
                 var item = this.$element[0].elements[i];
@@ -181,7 +186,7 @@ var jQuery = require('jquery/dist/jquery.min');
                 // check type=number
                 var regNumber = /^[0-9]+$/;
                 if ($(item).val() && $(item).attr('type') === 'number' && !regNumber.test($(item).val())) {
-                    this.displayCustomEror(this.options.errorMessages.pattern[this.userLang], $(item),'after');
+                    this.displayCustomEror(this.options.errorMessages.pattern[this.userLang], $(item), 'after');
                     errorCount++;
                 }
                 // check pattern
@@ -196,47 +201,46 @@ var jQuery = require('jquery/dist/jquery.min');
             return errorCount ? true : false;
         },
 
-        displayCustomEror: function(message, $item, position) {
+        displayCustomEror: function displayCustomEror(message, $item, position) {
 
-            if (!$item) { // global error
+            if (!$item) {
+                // global error
                 if (!this.$element.children('.' + this.options.classNames.error).length) {
-                    if((position!=='undefined') && (position ==='after')){
+                    if (position !== 'undefined' && position === 'after') {
                         this.$element.append(this.options.customTooltipTpl.replace('{{message}}', message));
                         $item.addClass('errorInput');
                         this.$submit.addClass('errorButton');
-                    }
-                    else{
+                    } else {
                         this.$element.prepend(this.options.customTooltipTpl.replace('{{message}}', message));
                     }
-
                 } else {
                     this.$element.children('.' + this.options.classNames.error).replaceWith(this.options.customTooltipTpl.replace('{{message}}', message));
                 }
-            } else { // single error
+            } else {
+                // single error
                 if (!$item.prev('.' + this.options.classNames.error).length) {
-                    if((position!=='undefined') && (position ==='after')){
+                    if (position !== 'undefined' && position === 'after') {
                         this.$element.find('.' + this.options.classNames.error).remove();
 
                         $item.after(this.options.customTooltipTpl.replace('{{message}}', message));
                         $item.addClass('errorInput');
                         this.$submit.addClass('errorButton');
-                    }
-                    else {
+                    } else {
                         $item.before(this.options.customTooltipTpl.replace('{{message}}', message));
                     }
-
                 } else {
                     $item.prev('.' + this.options.classNames.error).replaceWith(this.options.customTooltipTpl.replace('{{message}}', message));
                 }
             }
         },
 
+        unsetCustomEror: function unsetCustomEror($item) {
 
-        unsetCustomEror: function($item) {
-
-            if (!$item) { // global error
+            if (!$item) {
+                // global error
                 this.$element.find('.' + this.options.classNames.error).remove();
-            } else { // single error
+            } else {
+                // single error
                 $item.prev('.' + this.options.classNames.error).remove();
                 $item.next('.' + this.options.classNames.error).remove();
                 this.$element.find('.' + this.options.classNames.error).remove();
@@ -251,10 +255,8 @@ var jQuery = require('jquery/dist/jquery.min');
     $.fn[pluginName] = function (options) {
         return this.each(function () {
             if (!$.data(this, 'plugin_' + pluginName)) {
-                $.data(this, 'plugin_' + pluginName,
-                    new Plugin(this, options));
+                $.data(this, 'plugin_' + pluginName, new Plugin(this, options));
             }
         });
     };
-
 })(jQuery, window, document);

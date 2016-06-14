@@ -1,6 +1,11 @@
 'use strict';
 
-require('babel-polyfill');
+if(!window.babelPolyfill)
+{
+    window.babelPolyfill= require('babel-polyfill');
+}
+
+
 
 var jQuery = require('jquery/dist/jquery.min');
 import * as jqueryAndPlugins from './modules/jqueryPlugins';
@@ -38,7 +43,9 @@ var displayMessageError = function(msg){
 
     //var urlTranscoMock = '/content/freecomponent/alerte-meteo/inseeCp.json';
     var urlTranscoMock = 'mock/inseeCp.json';
-    var urlTransco = 'http://author-assprj-espaceclient.axa-fr.intraxa/bin/translateZipCode?zipCodeToTranslate=';
+
+    var urlTransco = location.hostname +'/bin/translateZipCode?zipCodeToTranslate=';
+
     var urlPredict = 'http://wiki-predict.com/axa_particulier/accueil.html?insee=';
 
     var getInsee = function(cp) {
@@ -87,6 +94,11 @@ var displayMessageError = function(msg){
 
     $form.on('submit', function (e) {
         e.preventDefault();
+
+        //if(AXAGenericConfig.InseeTranscodingURL)
+        //{
+        //    urlTransco=AXAGenericConfig.InseeTranscodingURL;
+        //}
         var cp = $form.find('input[name="location"]').val();
         showWeatherOnPredictMap(cp);
        // showWeatherOnPredictMapMock(cp);

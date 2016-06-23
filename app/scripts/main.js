@@ -44,7 +44,8 @@ var displayMessageError = function(msg){
     //var urlTranscoMock = '/content/freecomponent/alerte-meteo/inseeCp.json';
     var urlTranscoMock = 'mock/inseeCp.json';
 
-    var urlTransco = location.hostname +'/bin/translateZipCode?zipCodeToTranslate=';
+    //var urlTransco = location.hostname +'/bin/translateZipCode?zipCodeToTranslate=';
+    var urlTransco =  window.location.href.replace(".html",".zipcode.json?zipCodeToTranslate=");
 
     var urlPredict = 'http://wiki-predict.com/axa_particulier/accueil.html?insee=';
 

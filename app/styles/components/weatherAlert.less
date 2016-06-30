@@ -124,10 +124,13 @@
       font-size: 1.7rem;
       border-radius: 0;
       border-bottom: 0;
-      padding: 10px 19px;
+      padding: 10px 16px !important;
 
       &:before{
         display: block;
+        font-size: 1.7rem !important;
+        position:initial !important;
+        padding-right:0 !important;
       }
 
       &:after{
@@ -137,6 +140,10 @@
       &.errorButton {
         border-bottom: 0;
       }
+    }
+
+    input[name='location']{
+      font-size: 2.3rem !important;
     }
   }
 

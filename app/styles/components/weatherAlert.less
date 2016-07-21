@@ -76,9 +76,7 @@
   }
 
   .searchAlert{
-
     background-color: @wa-darkgrey;
-
     border-radius: 4px;
     font-weight: bold;
     font-size: 1.5rem;
@@ -88,6 +86,7 @@
     border: 0 outset ;
     border-bottom: 2px solid @wa-verydarkgrey;
     text-shadow: 0px 1px 0px @wa-black;
+    height: 41px;
 
     &:before{
       display: none;
@@ -122,13 +121,14 @@
 
     .searchAlert{
       font-size: 1.7rem;
+      height: 41px;
       border-radius: 0;
       border-bottom: 0;
       padding: 10px 16px !important;
 
       &:before{
         display: block;
-        font-size: 1.7rem !important;
+        font-size: 2.7rem !important;
         position:initial !important;
         padding-right:0 !important;
       }
@@ -150,4 +150,14 @@
     }
   }
 
+}
+
+
+/* OVERLAOD AXA FR */
+
+#weatherAlertContainer {
+
+  input[name='location']{
+    line-height:1 !important;
+  }
 }
